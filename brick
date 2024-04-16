@@ -1,5 +1,6 @@
 import pygame
 from player import player
+from fireball import fireball
 pygame.init()
 pygame.display.set_caption("top down grid game")# window tile
 screen = pygame.display.set_mode((1200,900))#game screen
@@ -8,6 +9,7 @@ gameover = False#variable game loop
 
 #instantiatre player
 p1 = player()
+ball = fireball()
 
 #constants
 LEFT = 0
@@ -69,7 +71,11 @@ while not gameover:
                 keys[DOWN] = False
         
     #pycals
+    if keys[SPACE] == True:
+        ball.shoot(p1.xpos, p1.ypos, p1.direction)
+        
     p1.move(keys, map)
+    ball.move()
     #render
     screen.fill((0,0,0))#wipe screen
    
@@ -85,7 +91,8 @@ while not gameover:
                 if map[i][j] == 3:
                     screen.blit(grass, (j * 50, i * 50), (0, 0, 50, 50))
     p1.draw(screen)
-    
+    if ball.isAlive == True:
+        ball.draw(screen)
                 
     pygame.display.flip()
     
