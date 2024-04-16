@@ -1,4 +1,6 @@
 import pygame
+Chicken = pygame.image.load('chicken.png') #load your spritesheet
+Chicken.set_colorkey((255, 0, 255))
 
 #contants
 LEFT = 0
@@ -17,8 +19,6 @@ class player:
         self.ypos = 415
         self.vx = 0
         self.vy = 0
-        self.Chicken = pygame.image.load('chicken.png') #load your spritesheet
-        self.Chicken.set_colorkey((255, 0, 255))
         self.frameWidth = 69
         self.frameHeight = 69
         self.RowNum = 2
@@ -26,7 +26,7 @@ class player:
         self.ticker = 0
         
     def draw(self, screen):
-        screen.blit(self.Chicken, (self.xpos, self.ypos), (self.frameWidth*self.frameNum, self.RowNum*self.frameHeight, self.frameWidth, self.frameHeight))
+        screen.blit(Chicken, (self.xpos, self.ypos), (self.frameWidth*self.frameNum, self.RowNum*self.frameHeight, self.frameWidth, self.frameHeight))
     
     def move(self, keys, map):
         
@@ -38,24 +38,31 @@ class player:
         #right movement
         elif keys[RIGHT] == True:
             self.vx = 3
+            self.RowNum = 3
         else:
              self.vx = 0
-        
-        
         #up/down-------------------
         if keys[UP] == True:
             self.vy = -3
+            self.RowNum = 0
         elif keys[DOWN] == True:
             self.vy = 3
+            self.RowNum = 1
         else:
-           
             self.vy = 0
             
+        if self.vx < 0 or self.vx > 0: #left animation
             self.ticker+=1
-            if self.ticker%10==0:
+            if self.ticker%10==0: #only change frames every 10 ticks
+              self.frameNum+=1
+            if self.frameNum>7: 
+               self.frameNum = 0
+    
+        if self.vy < 0 or self.vy > 0:
+            self.ticker+=1
+            if self.ticker%10==0: #only change frames every 10 ticks
                 self.frameNum+=1
-                
-            if self.ticker>7:
+            if self.frameNum >7:
                 self.frameNum = 0
             
         #collison
