@@ -1,5 +1,5 @@
 import pygame
-Chicken = pygame.image.load('chicken.png') #load your spritesheet
+Chicken = pygame.image.load('images/chicken.png') #load your spritesheet
 Chicken.set_colorkey((255, 0, 255))
 
 #contants

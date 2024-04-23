@@ -39,9 +39,9 @@ map = [[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
        [2,3,2,3,3,3,0,0,0,0,0,3,2,3,3,3,0,0,0,2,2,2,2,2],
        [2,2,2,2,2,2,2,2,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2]]
 
-brick = pygame.image.load('brick.jpg')
-dirt = pygame.image.load('dirt.WEBP')
-grass = pygame.image.load('grass.jpg')
+brick = pygame.image.load('images/brick.jpg')
+dirt = pygame.image.load('images/dirt.jpg')
+grass = pygame.image.load('images/grass.jpg')
 
 while not gameover:
     clock.tick(60)#fps
