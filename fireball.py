@@ -11,7 +11,7 @@ class fireball:
     def __init__(self):
         self.xpos = -10
         self.ypos = -10
-        self.isAlive = True
+        self.isAlive = False
         self.direction = RIGHT# right was provided the rest i did 
         self.direction = LEFT
         self.direction = DOWN
