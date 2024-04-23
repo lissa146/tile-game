@@ -59,6 +59,9 @@ while not gameover:
                 keys[UP] = True
             elif event.key == pygame.K_DOWN:
                 keys[DOWN] = True
+            elif event.key == pygame.K_SPACE:
+                keys[SPACE] == True
+                ball.shoot(p1.xpos, p1.ypos, p1.direction)
         
         elif  event.type == pygame.KEYUP:#quit game if x is presed in top corner
             if event.key == pygame.K_LEFT:
@@ -69,13 +72,16 @@ while not gameover:
                 keys[UP] = False
             elif event.key == pygame.K_DOWN:
                 keys[DOWN] = False
+            elif event.key == pygame.K_SPACE:
+                keys[SPACE] == False
+                ball.shoot(p1.xpos, p1.ypos, p1.direction)
         
     #pycals
-    if keys[SPACE] == True:
-        ball.shoot(p1.xpos, p1.ypos, p1.direction)
+    #if keys[SPACE] == True:
+        #ball.shoot(p1.xpos, p1.ypos, p1.direction)
         
     p1.move(keys, map)
-    ball.move()
+    ball.move(p1.direction, p1.xpos, p1.ypos)
     #render
     screen.fill((0,0,0))#wipe screen
    

@@ -24,6 +24,7 @@ class player:
         self.RowNum = 2
         self.frameNum = 0
         self.ticker = 0
+        self.direction = False
         
     def draw(self, screen):
         screen.blit(Chicken, (self.xpos, self.ypos), (self.frameWidth*self.frameNum, self.RowNum*self.frameHeight, self.frameWidth, self.frameHeight))

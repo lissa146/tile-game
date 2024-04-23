@@ -11,8 +11,12 @@ class fireball:
     def __init__(self):
         self.xpos = -10
         self.ypos = -10
-        self.isAlive = False
-        self.direction = RIGHT
+        self.isAlive = True
+        self.direction = RIGHT# right was provided the rest i did 
+        self.direction = LEFT
+        self.direction = DOWN
+        self.direction = UP
+
         
     def shoot(self, x, y, dir):
         self.xpos = x + 20
@@ -20,7 +24,7 @@ class fireball:
         self.isAlive = True
         self.direction = dir
         
-    def move(self):
+    def move(self, direction, xpos, ypos):
         if self.direction == RIGHT:
             self.xpos+=20
         elif self.direction == LEFT:
