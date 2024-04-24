@@ -1,15 +1,18 @@
 import pygame
-from player import player
+from player import Player
 from fireball import fireball
+from ememy import enemy
 pygame.init()
 pygame.display.set_caption("top down grid game")# window tile
 screen = pygame.display.set_mode((1200,900))#game screen
 clock = pygame.time.Clock()#set up clock
 gameover = False#variable game loop
 
+ticker = 0
 #instantiatre player
-p1 = player()
+p1 = Player()
 ball = fireball()
+e1 = enemy()
 
 #constants
 LEFT = 0
@@ -21,22 +24,22 @@ W = 5
 keys = [False, False, False, False, False] # this list hgoldd whether each key has been pressed 
 
 map = [[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
-       [2,1,1,1,1,2,2,1,1,0,0,1,1,1,1,2,2,1,1,2,2,2,2,2],
-       [2,1,1,1,1,2,2,1,1,0,0,1,1,1,1,2,2,1,1,2,2,2,2,2],
-       [2,0,0,2,2,2,2,0,0,0,0,0,0,2,2,2,2,0,0,2,2,2,2,2],
-       [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2],
-       [2,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,2,2,0,2,2,2,2,2],
-       [2,3,2,3,3,3,2,2,0,0,0,3,2,3,3,3,2,2,0,2,2,2,2,2],
-       [2,3,2,3,3,3,0,0,0,0,0,3,2,3,3,3,0,0,0,2,2,2,2,2],
-       [2,3,2,3,3,0,0,0,0,0,0,3,2,3,3,0,0,0,0,2,2,2,2,2],
+       [2,1,1,1,1,2,2,1,1,0,0,1,1,1,1,2,2,1,1,2,2,2,0,2],
+       [2,1,1,1,1,2,2,1,1,0,0,1,1,1,1,2,2,1,1,2,0,0,0,2],
+       [2,0,0,2,2,2,2,0,0,0,0,0,0,2,2,2,2,0,0,2,0,0,0,2],
+       [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,2],
+       [2,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,2,2,0,2,0,0,0,2],
+       [2,3,2,3,3,3,2,2,0,0,0,3,2,3,3,3,2,2,0,2,0,0,0,2],
+       [2,3,2,3,3,3,0,0,0,0,0,3,2,3,3,3,0,0,0,2,0,0,0,2],
+       [2,3,2,3,3,0,0,0,0,0,0,3,2,3,3,0,0,0,0,2,0,0,0,2],
        [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
-       [2,1,1,1,1,2,2,1,1,0,0,1,1,1,1,2,2,1,1,2,2,2,2,2],
-       [2,1,1,1,1,2,2,1,1,0,0,1,1,1,1,2,2,1,1,2,2,2,2,2],
-       [2,0,0,2,2,2,2,0,0,0,0,0,0,2,2,2,2,0,0,2,2,2,2,2],
-       [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2],
-       [2,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,2,2,0,2,2,2,2,2],
-       [2,3,2,3,3,3,2,2,0,0,0,3,2,3,3,3,2,2,0,2,2,2,2,2],
-       [2,3,2,3,3,3,0,0,0,0,0,3,2,3,3,3,0,0,0,2,2,2,2,2],
+       [2,1,1,1,1,2,2,1,1,0,0,1,1,1,1,2,2,1,1,2,0,0,0,2],
+       [2,1,1,1,1,2,2,1,1,0,0,1,1,1,1,2,2,1,1,2,0,0,0,2],
+       [2,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,0,0,2,0,0,0,2],
+       [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,2],
+       [2,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,2,2,0,2,0,0,0,2],
+       [2,3,2,3,3,3,2,2,0,0,0,3,2,3,3,3,2,2,0,2,0,0,0,2],
+       [2,3,2,3,3,3,0,0,0,0,0,3,2,3,3,3,0,0,0,2,0,0,0,2],
        [2,2,2,2,2,2,2,2,2,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2]]
 
 brick = pygame.image.load('images/brick.jpg')
@@ -59,9 +62,9 @@ while not gameover:
                 keys[UP] = True
             elif event.key == pygame.K_DOWN:
                 keys[DOWN] = True
-            elif event.key == pygame.K_SPACE:
-                keys[SPACE] == True
-                ball.shoot(p1.xpos, p1.ypos, p1.direction)
+
+            if event.key == pygame.K_SPACE:
+                keys[SPACE] = True
         
         elif  event.type == pygame.KEYUP:#quit game if x is presed in top corner
             if event.key == pygame.K_LEFT:
@@ -72,16 +75,21 @@ while not gameover:
                 keys[UP] = False
             elif event.key == pygame.K_DOWN:
                 keys[DOWN] = False
-            elif event.key == pygame.K_SPACE:
-                keys[SPACE] == False
-                ball.shoot(p1.xpos, p1.ypos, p1.direction)
+                
+            if event.key == pygame.K_SPACE:
+                keys[SPACE] = False
+                
         
     #pycals
-    #if keys[SPACE] == True:
-        #ball.shoot(p1.xpos, p1.ypos, p1.direction)
-        
+   
     p1.move(keys, map)
-    ball.move(p1.direction, p1.xpos, p1.ypos)
+    if ball.isAlive == True:
+        ball.move()
+    if keys[SPACE] == True:
+            ball.shoot(p1.xpos, p1.ypos, p1.direction)
+    e1.move(map, ticker, p1)
+    e1.die(ball.xpos, ball.ypos)
+    
     #render
     screen.fill((0,0,0))#wipe screen
    
@@ -99,6 +107,7 @@ while not gameover:
     p1.draw(screen)
     if ball.isAlive == True:
         ball.draw(screen)
+    e1.draw(screen)
                 
     pygame.display.flip()
     
