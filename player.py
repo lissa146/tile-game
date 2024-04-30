@@ -1,5 +1,7 @@
+
 import pygame
-Chicken = pygame.image.load('images/chicken.png') #load your spritesheet
+import math
+Chicken = pygame.image.load('tile/images/chicken.png') #load your spritesheet
 Chicken.set_colorkey((255, 0, 255))
 
 #contants
@@ -25,6 +27,8 @@ class Player:
         self.frameNum = 0
         self.ticker = 0
         self.direction = RIGHT
+        self.health = 200
+        self.isAlive = False
         
     def draw(self, screen):
         screen.blit(Chicken, (self.xpos, self.ypos), (self.frameWidth*self.frameNum, self.RowNum*self.frameHeight, self.frameWidth, self.frameHeight))
@@ -80,3 +84,7 @@ class Player:
             
         self.xpos+=self.vx #update player xpos
         self.ypos += self.vy
+
+    def ouch(self, x, y):
+        if math.sqrt((self.xpos-x)**2 + (self.ypos-y)**2) <= 20:
+            self.health -= 5
