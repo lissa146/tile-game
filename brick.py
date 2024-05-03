@@ -13,7 +13,7 @@ gameover = False#variable game loop
 p1 = Player()
 ball = fireball()
 e1 = enemy(400, 200)
-e2 = enemy(300,100)
+e2 = enemy(400,100)
 ticker =0 
 #constants
 LEFT = 0
@@ -23,7 +23,7 @@ DOWN = 3
 SPACE = 4
 W = 5
 keys = [False, False, False, False, False] # this list hgoldd whether each key has been pressed 
-mapNum = 1
+#mapNum = 1
 
 map = [[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
        [2,1,1,1,1,2,2,1,1,0,0,1,1,1,1,2,2,1,1,2,2,2,2,2],
@@ -32,8 +32,8 @@ map = [[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
        [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2],
        [2,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,2,2,0,2,2,2,2,2],
        [2,3,2,3,3,3,2,2,0,0,0,3,2,3,3,3,2,2,0,2,2,2,2,2],
-       [2,3,2,3,3,3,0,0,0,0,0,3,2,3,3,3,0,0,0,2,2,2,2,2],
-       [4,3,2,3,3,0,0,0,0,0,0,3,2,3,3,0,0,0,0,2,2,2,2,2],
+       [2,3,3,3,3,3,0,0,0,0,0,3,2,3,3,3,0,0,0,2,2,2,2,2],
+       [4,3,3,3,3,0,0,0,0,0,0,3,2,3,3,0,0,0,0,2,2,2,2,2],
        [4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
        [2,1,1,1,1,2,2,1,1,0,0,1,1,1,1,2,2,1,1,2,2,2,2,2],
        [2,1,1,1,1,2,2,1,1,0,0,1,1,1,1,2,2,1,1,2,2,2,2,2],
@@ -87,11 +87,11 @@ def draw(drawPlayer):
     elif mapNum == 2:    #map
         for i in range(len(map)):
             for j in range(len(map[i])):
-                if map[i][j] == 1:
+                if map2[i][j] == 1:
                     screen.blit(dirt, (j * 50, i * 50), (0, 0, 50, 50))
-                if map[i][j] == 2:
+                if map2[i][j] == 2:
                     screen.blit(brick, (j * 50, i * 50), (0, 0, 50, 50))
-                if map[i][j] == 3:
+                if map2[i][j] == 3:
                     screen.blit(grass, (j * 50, i * 50), (0, 0, 50, 50))
                 if map[i][j] == 4:
                     screen.blit(space, (0,0,0), (j*50, i*50, 50, 50))
@@ -100,8 +100,8 @@ def draw(drawPlayer):
     if ball.isAlive == True:
             ball.draw(screen)
         
-    e1.draw(screen)
-    e2.draw(screen)
+    #e1.draw(screen)
+    #e2.draw(screen)
     pygame.draw.rect(screen, (255, 255, 255), (750, 5, 200, 30))
     pygame.draw.rect(screen, (150, 0, 0), (750, 5, p1.health, 30))
     pygame.draw.rect(screen, (0, 0, 0), (750, 5, 200, 30), 3)                
@@ -148,8 +148,8 @@ while not gameover:
 
     e1.move(map,ticker, p1.xpos, p1.ypos)
     e1.die(ball.xpos, ball.ypos)
-    p1.die(e1.xpos, e1.ypos)
-    p1.ouch(e1.xpos, e1.ypos)
+    #p1.die(e1.xpos, e1.ypos)
+    #p1.ouch(e1.xpos, e1.ypos)
     p1.move(keys, map)
     ball.move()
     if mapNum == 1:
@@ -161,6 +161,8 @@ while not gameover:
         e1.move(map, ticker, p1.xpos, p1.ypos)
     elif mapNum == 2:
         e1.move(map2, ticker, p1.xpos, p1.ypos)
+    
+    
     if mapNum == 1:
         if map[int((p1.ypos ) / 50)][int( (p1.xpos) / 50)] == 4:
             mapNum =2
