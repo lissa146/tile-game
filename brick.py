@@ -63,10 +63,10 @@ map2 = [[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
        [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
        [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3]]
 
-brick = pygame.image.load('tile/images/brick.jpg')
-dirt = pygame.image.load('tile/images/dirt.WEBP')
-grass = pygame.image.load('tile/images/grass.jpg')
-space = pygame.image.load('tile/images/spacejpg')
+brick = pygame.image.load('images/brick.jpg')
+dirt = pygame.image.load('images/dirt.WEBP')
+grass = pygame.image.load('images/grass.jpg')
+space = pygame.image.load('images/space.jpg')
 
 def draw(drawPlayer):
     screen.fill((0,0,0))#wipe screen
@@ -148,6 +148,7 @@ while not gameover:
 
     e1.move(map,ticker, p1.xpos, p1.ypos)
     e1.die(ball.xpos, ball.ypos)
+    p1.die(e1.xpos, e1.ypos)
     p1.ouch(e1.xpos, e1.ypos)
     p1.move(keys, map)
     ball.move()
@@ -160,6 +161,14 @@ while not gameover:
         e1.move(map, ticker, p1.xpos, p1.ypos)
     elif mapNum == 2:
         e1.move(map2, ticker, p1.xpos, p1.ypos)
+    if mapNum == 1:
+        if map[int((p1.ypos ) / 50)][int( (p1.xpos) / 50)] == 4:
+            mapNum =2
+            p1.xpos = 50
+    if mapNum == 2:
+        if map[int((p1.ypos ) / 50)][int( (p1.xpos) / 50)] == 4:
+            mapNum =1
+            p1.xpos = 50
 
     #render
     draw(True)

@@ -2,7 +2,7 @@ import pygame
 import random
 import math
 
-waddles = pygame.image.load('tile/images/waddles.png') #load your spritesheet
+waddles = pygame.image.load('images/waddles.png') #load your spritesheet
 waddles.set_colorkey((255, 0, 255))
 
 #contants

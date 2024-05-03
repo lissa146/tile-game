@@ -1,7 +1,7 @@
 
 import pygame
 import math
-Chicken = pygame.image.load('tile/images/chicken.png') #load your spritesheet
+Chicken = pygame.image.load('images/chicken.png') #load your spritesheet
 Chicken.set_colorkey((255, 0, 255))
 
 #contants
@@ -31,7 +31,8 @@ class Player:
         self.isAlive = False
         
     def draw(self, screen):
-        screen.blit(Chicken, (self.xpos, self.ypos), (self.frameWidth*self.frameNum, self.RowNum*self.frameHeight, self.frameWidth, self.frameHeight))
+        if self.isAlive == False:
+            screen.blit(Chicken, (self.xpos, self.ypos), (self.frameWidth*self.frameNum, self.RowNum*self.frameHeight, self.frameWidth, self.frameHeight))
     
     def move(self, keys, map):
         #left/right---------------------
@@ -88,3 +89,8 @@ class Player:
     def ouch(self, x, y):
         if math.sqrt((self.xpos-x)**2 + (self.ypos-y)**2) <= 20:
             self.health -= 5
+
+    def die(self, x, y):
+        if math.sqrt((self.xpos-x)**2 + (self.ypos-y)**2) <= 20:
+            if self.health == 0:
+                self.isAlive = True
