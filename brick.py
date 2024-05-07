@@ -15,6 +15,8 @@ p1 = Player()
 ball = fireball()
 e1 = enemy(400, 200)
 e2 = enemy(400,100)
+n1 = npc(200,100)
+n2 = npc(300,100)
 ticker =0 
 #constants
 LEFT = 0
@@ -101,8 +103,10 @@ def draw(drawPlayer):
     if ball.isAlive == True:
             ball.draw(screen)
         
-    #e1.draw(screen)
-    #e2.draw(screen)
+    e1.draw(screen)
+    e2.draw(screen)
+    n1.draw(screen)
+    n2.draw(screen)
     pygame.draw.rect(screen, (255, 255, 255), (750, 5, 200, 30))
     pygame.draw.rect(screen, (150, 0, 0), (750, 5, p1.health, 30))
     pygame.draw.rect(screen, (0, 0, 0), (750, 5, 200, 30), 3)                
@@ -148,7 +152,11 @@ while not gameover:
         ball.shoot(p1.xpos, p1.ypos, p1.direction)
 
     e1.move(map,ticker, p1.xpos, p1.ypos)
+    e2.move(map,ticker, p1.xpos, p1.ypos)
+    n1.move(map,ticker)
+    n2.move(map,ticker)
     e1.die(ball.xpos, ball.ypos)
+    e2.die(ball.xpos, ball.ypos)
     #p1.die(e1.xpos, e1.ypos)
     #p1.ouch(e1.xpos, e1.ypos)
     p1.move(keys, map)
