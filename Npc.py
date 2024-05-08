@@ -32,9 +32,12 @@ class npc:
         if self.ticker % 40 == 0:
             num = random.randrange(0,4)
             if num == 0:
-                self.direction = RIGHT #teacher gave left and right but i added down and up 
+                self.direction = RIGHT
+                 #teacher gave left and right but i added down and up 
             elif num == 1:
                 self.direction = LEFT
+                self.vx = -3
+                self.RowNum = 2
             elif num == 2:
                 self.direction = DOWN
             elif num == 3:

@@ -2,7 +2,6 @@ import pygame
 from player import Player
 from fireball import fireball
 from ememy import enemy
-from enemy2 import Enemy2
 from Npc import npc
 pygame.init()
 pygame.display.set_caption("top down grid game")# window tile
@@ -157,8 +156,8 @@ while not gameover:
     n2.move(map,ticker)
     e1.die(ball.xpos, ball.ypos)
     e2.die(ball.xpos, ball.ypos)
-    #p1.die(e1.xpos, e1.ypos)
-    #p1.ouch(e1.xpos, e1.ypos)
+    p1.die(e1.xpos, e1.ypos)
+    p1.ouch(e1.xpos, e1.ypos)
     p1.move(keys, map)
     ball.move()
     if mapNum == 1:

@@ -1,6 +1,8 @@
 import pygame
 import random
 import math
+waddles = pygame.image.load('images/waddles.png') #load your spritesheet
+waddles.set_colorkey((255, 0, 255))
 
 #contants
 LEFT = 0
@@ -17,8 +19,8 @@ class enemy:
         self.ypos = y
         self.vx = 0
         self.vy = 0
-        self.frameWidth = 69
-        self.frameHeight = 69
+        self.frameWidth = 36
+        self.frameHeight = 33
         self.RowNum = 2
         self.frameNum = 0
         self.ticker = 0
@@ -30,13 +32,31 @@ class enemy:
         if ticker % 40 == 0:
             num = random.randrange(0,4)
             if num == 0:
+                self.vx = 3
+                self.RowNum = 3
                 self.direction = RIGHT #teacher gave left and right but i added down and up 
             elif num == 1:
+                self.vx = -3
+                self.RowNum = 2
                 self.direction = LEFT
             elif num == 2:
+                self.vy = 3
+                self.RowNum = 1
                 self.direction = DOWN
             elif num == 3:
+                self.vy = -3
+                self.RowNum = 0
                 self.direction = UP
+            else:
+                self.vy = 0
+                self.vx = 0
+
+        if self.vx !=  0 or self.vy != 0: #left animation
+            self.ticker+=1
+            if self.ticker%10==0: #only change frames every 10 ticks
+              self.frameNum+=1
+            if self.frameNum>3: 
+               self.frameNum = 0
         
         if abs(int(py/50) - int(self.ypos/50))<2: #teacher provided right and left and alex/partner helped me with the other two
             if px < self.xpos:
@@ -53,6 +73,7 @@ class enemy:
             else:
                 self.ypos+=3
                 self.direction = DOWN
+
 
         
         if self.direction == RIGHT and map[int((self.ypos ) /50)][int( (self.xpos + 20) / 50)] ==2: #was provide with left an right and i added 
@@ -77,8 +98,8 @@ class enemy:
         elif self.direction == DOWN:
             self.xpos -= 3
     def draw(self, screen):
-        pygame.draw.rect(screen, (255, 0, 255), (self.xpos, self.ypos, 30, 30))
-
+        screen.blit(waddles, (self.xpos, self.ypos), (self.frameWidth*self.frameNum, self.RowNum*self.frameHeight, self.frameWidth, self.frameHeight))
+    
     def die(self, ballx, bally):
         if math.sqrt((self.xpos-ballx)**2 + (self.ypos-bally)**2) <= 20:
             self.isAlive = False
