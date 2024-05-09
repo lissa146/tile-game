@@ -19,8 +19,8 @@ class enemy:
         self.ypos = y
         self.vx = 0
         self.vy = 0
-        self.frameWidth = 36
-        self.frameHeight = 33
+        self.frameWidth = 69
+        self.frameHeight = 69
         self.RowNum = 2
         self.frameNum = 0
         self.ticker = 0
@@ -78,16 +78,16 @@ class enemy:
         
         if self.direction == RIGHT and map[int((self.ypos ) /50)][int( (self.xpos + 20) / 50)] ==2: #was provide with left an right and i added 
             self.direction = UP
-            self.xpos -= 6
+            self.xpos -= 3
         if self.direction == LEFT and map[int((self.ypos ) /50)][int( (self.xpos - 20) / 50)] == 2:
             self.direction = DOWN
-            self.xpos += 6
+            self.xpos += 3
         if self.direction == UP and map[int((self.ypos ) /50)][int( (self.xpos + 20) / 50)] ==2:
             self.direction = RIGHT
-            self.xpos -= 6
+            self.xpos -= 3
         if self.direction == DOWN and map[int((self.ypos ) /50)][int( (self.xpos - 20) / 50)] == 2:
             self.direction = LEFT
-            self.xpos+= 6
+            self.xpos+= 3
 
         if self.direction == RIGHT:# was provided with right and left and i added up and down
             self.xpos += 3
@@ -98,9 +98,17 @@ class enemy:
         elif self.direction == DOWN:
             self.xpos -= 3
     def draw(self, screen):
-        screen.blit(waddles, (self.xpos, self.ypos), (self.frameWidth*self.frameNum, self.RowNum*self.frameHeight, self.frameWidth, self.frameHeight))
+        if self.isAlive == True:
+            screen.blit(waddles, (self.xpos, self.ypos), (self.frameWidth*self.frameNum, self.RowNum*self.frameHeight, self.frameWidth, self.frameHeight))
     
     def die(self, ballx, bally):
         if math.sqrt((self.xpos-ballx)**2 + (self.ypos-bally)**2) <= 20:
             self.isAlive = False
-        
+    def talk(self):
+        num = random.randrange(0,3)
+        if num == 0:
+            print("onik onik !!!")
+        if num == 1:
+            print("hey hey you im gonna get you!!")
+        else:
+            print(" i hate you!!")
