@@ -25,7 +25,7 @@ UP = 2
 DOWN = 3
 SPACE = 4
 ENTER = 5
-keys = [False, False, False, False, False] # this list hgoldd whether each key has been pressed 
+keys = [False, False, False, False, False, False] # this list hgoldd whether each key has been pressed 
 mapNum = 1
 
 map = [[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
@@ -135,14 +135,14 @@ def draw(drawPlayer):
         
     e1.draw(screen)
     e2.draw(screen)
-    n1.draw(screen)
-    n2.draw(screen)
+    n1.draw(screen, ticker)
+    n2.draw(screen, ticker)
     pygame.draw.rect(screen, (255, 255, 255), (750, 5, 200, 30))
     pygame.draw.rect(screen, (150, 0, 0), (750, 5, p1.health, 30))
     pygame.draw.rect(screen, (0, 0, 0), (750, 5, 200, 30), 3)                
     pygame.display.flip()
 def dist(x1, y1, x2, y2):
-    return math.sqrt((x1-x2**2) + (y1-y2**2)**2)
+    return math.sqrt((x1-x2)**2 + (y1-y2**2)**2)
 
 
 
@@ -188,6 +188,8 @@ while not gameover:
     if mapNum == 1:
         e1.move(map, ticker, p1.xpos, p1.ypos)
         e2.move(map,ticker, p1.xpos, p1.ypos)
+        e1.draw(screen)
+        e2.draw(screen)
         e1.die(ball.xpos, ball.ypos)
         e2.die(ball.xpos, ball.ypos)
         n1.move(map,ticker)
@@ -196,11 +198,12 @@ while not gameover:
         #p1.ouch(e1.xpos, e1.ypos)
         p1.move(keys, map)
         ball.move()
-    if keys[ENTER] == True and dist(p1.xpos, p1.ypos, n1.xpos, n1.xpos)<10:
-        n1.talk()
-        n2.talk()
+        if keys[ENTER] == True and dist(p1.xpos, p1.ypos, n1.xpos, n1.xpos)<10:
+            n1.talk()
     elif mapNum == 2:
         e1.move(map2, ticker, p1.xpos, p1.ypos)
+        e1.draw(screen)
+        e2.draw(screen)
         e2.move(map,ticker, p1.xpos, p1.ypos)
         e1.die(ball.xpos, ball.ypos)
         e2.die(ball.xpos, ball.ypos)

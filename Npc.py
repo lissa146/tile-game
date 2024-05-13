@@ -1,8 +1,10 @@
 import pygame
 import random
 import math
-NPC = pygame.image.load('images/NPC.png') #load your spritesheet
-NPC.set_colorkey((255, 0, 255))
+pygame.init()
+font = pygame.font.Font('freesansbold.ttf', 20)
+NPC = pygame.image.load('images/npc2.png') #load your spritesheet
+NPC.set_colorkey((255, 255, 255))
 #contants
 LEFT = 0
 RIGHT = 1
@@ -15,18 +17,31 @@ class npc:
         
         #player variable
         self.xpos = 100
-        self.ypos = 500
+        self.ypos = 400
         self.vx = 0
         self.vy = 0
-        self.frameWidth = 17
-        self.frameHeight = 26
+        self.frameWidth = 45
+        self.frameHeight = 69
         self.RowNum = 2
         self.frameNum = 0
         self.ticker = 0
-        self.direction = "None"
+        self.direction = RIGHT
+        self.isAlive = True
+        self.isTalking = False
+        self.talkTimer = 0
+        self.label = "howdy"
+        self.text_surface = font.render(self.label, False, (255,255,255))
 
-    def draw(self, screen):
+
+    def draw(self, screen, ticker):
             screen.blit(NPC, (self.xpos, self.ypos), (self.frameWidth*self.frameNum, self.RowNum*self.frameHeight, self.frameWidth, self.frameHeight))
+            if self.isAlive == True:
+                pygame.draw.circle(screen, (0, 250, 250), (self.xpos, self.ypos), 20)
+            if ticker-self.talkTimer < 200:
+                pygame.draw.rect(screen, (0,0,0), (self.xpos, self.ypos, 800, 200))
+                screen.blit(self.text_surface, (self.xpos+20, self.ypos+20))
+            else:
+                self.isTalking = False
     
     def move(self,ticker, map):
 
@@ -70,15 +85,21 @@ class npc:
         elif self.direction == DOWN:
             self.xpos -= 3
 
-    def talk(self):
-        num = random.randrange(0,3)
-        if num == 0:
-            print("howdy")
-        elif num == 1:
-            print("birds arent reall!!!!!!")
-        elif num == 2:
-            print("i love dounuts!!!!!!!!!!")
-        else:
-            print("tess tess tess tess tess tess")
+    def talk(self, ticker):
+        if self.isTalking == False:
+            self.talkTimer = ticker
+            self.isTalking = True
+            num = random.randrange(0,3)
+            if num ==0:
+                self.label = "howdy"
+            elif num == 1:
+                 self.label = "birds arent reall!!!!!!"
+            elif num == 2:
+                 self.label = "i love dounuts!!!!!!!!!!"
+            else:
+                 self.label = "tess tess tess tess tess tess"
+
+            self.text_surface = font.render(self.label, False, (255,255,255))
+
 
 
