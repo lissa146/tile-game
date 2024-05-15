@@ -98,7 +98,7 @@ class enemy:
         elif self.direction == DOWN:
             self.xpos -= 3
     def draw(self, screen):
-        if self.isAlive == False:
+        if self.isAlive == True:
             screen.blit(waddles, (self.xpos, self.ypos), (self.frameWidth*self.frameNum, self.RowNum*self.frameHeight, self.frameWidth, self.frameHeight))
          
     def die(self, ballx, bally):

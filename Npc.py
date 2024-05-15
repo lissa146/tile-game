@@ -36,10 +36,10 @@ class npc:
     def draw(self, screen, ticker):
             screen.blit(NPC, (self.xpos, self.ypos), (self.frameWidth*self.frameNum, self.RowNum*self.frameHeight, self.frameWidth, self.frameHeight))
             if self.isAlive == True:
-                pygame.draw.circle(screen, (0, 250, 250), (self.xpos, self.ypos), 20)
+                pygame.draw.circle(screen, (0, 250, 250), (self.xpos, self.ypos), 10)
             if ticker-self.talkTimer < 200:
-                pygame.draw.rect(screen, (0,0,0), (self.xpos, self.ypos, 800, 200))
-                screen.blit(self.text_surface, (self.xpos+20, self.ypos+20))
+                pygame.draw.rect(screen, (0,0,0), (self.xpos, self.ypos, 120, 30))
+                screen.blit(self.text_surface, (self.xpos+50, self.ypos+10))
             else:
                 self.isTalking = False
     

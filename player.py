@@ -29,6 +29,7 @@ class Player:
         self.direction = RIGHT
         self.health = 200
         self.isAlive = False
+        self.inventory = []
         
     def draw(self, screen):
         if self.isAlive == False:
@@ -94,3 +95,6 @@ class Player:
         if math.sqrt((self.xpos-x)**2 + (self.ypos-y)**2) <= 20:
             if self.health == 0:
                 self.isAlive = True
+    def collect_item(self,item):
+         item.collect()
+         self.inventory.append(item)
