@@ -7,7 +7,7 @@ UP = 2
 DOWN = 3
 SPACE = 4
 
-class npc:
+class item:
     def __init__ (self, x, y,type):
         
         #player variable
@@ -26,6 +26,7 @@ class npc:
 
 
     def draw(self, screen):
-            if self.collected == True:
+            if self.collected == False:
                 pygame.draw.circle(screen, (0, 250, 250), (self.xpos, self.ypos), 10)
-    
+    def collect(self):
+         self.collected == True

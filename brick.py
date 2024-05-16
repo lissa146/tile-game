@@ -4,6 +4,7 @@ from player import Player
 from fireball import fireball
 from ememy import enemy
 from Npc import npc
+from items import inventory
 pygame.init()
 pygame.display.set_caption("top down grid game")# window tile
 screen = pygame.display.set_mode((1200,900))#game screen
@@ -17,6 +18,7 @@ e1 = enemy(400, 200)
 e2 = enemy(400,100)
 n1 = npc(200,100)
 n2 = npc(300,100)
+items = [item(100, 100, 'dount'), item(200, 200, 'ring')]
 ticker =0 
 #constants
 LEFT = 0
@@ -139,8 +141,11 @@ def draw(drawPlayer):
     n2.draw(screen, ticker)
     pygame.draw.rect(screen, (255, 255, 255), (750, 5, 200, 30))
     pygame.draw.rect(screen, (150, 0, 0), (750, 5, p1.health, 30))
-    pygame.draw.rect(screen, (0, 0, 0), (750, 5, 200, 30), 3)                
+    pygame.draw.rect(screen, (0, 0, 0), (750, 5, 200, 30), 3) 
+    for i in items:
+        i.draw(screen)               
     pygame.display.flip()
+    
 def dist(x1, y1, x2, y2):
     return math.sqrt((x1-x2)**2 + (y1-y2**2)**2)
 
@@ -229,6 +234,10 @@ while not gameover:
         if map[int((p1.ypos ) / 50)][int( (p1.xpos) / 50)] == 5:
             mapNum =1
             p1.xpos = 50
+
+    for i in items:
+        if i.collected == False and dist(p1.xpos, p1.ypos, i.x, i.y)<30:
+            p1.collect_item(i)
 
     #render
     draw(True)
