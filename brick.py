@@ -4,7 +4,7 @@ from player import Player
 from fireball import fireball
 from ememy import enemy
 from Npc import npc
-from items import inventory
+from items import item
 pygame.init()
 pygame.display.set_caption("top down grid game")# window tile
 screen = pygame.display.set_mode((1200,900))#game screen
@@ -236,7 +236,7 @@ while not gameover:
             p1.xpos = 50
 
     for i in items:
-        if i.collected == False and dist(p1.xpos, p1.ypos, i.x, i.y)<30:
+        if i.collected == False and dist(p1.xpos, p1.ypos, i.xpos, i.ypos)<30:
             p1.collect_item(i)
 
     #render
