@@ -19,6 +19,14 @@ e2 = enemy(400,100)
 n1 = npc(200,100)
 n2 = npc(300,100)
 items = [item(100, 100, 'dount'), item(200, 200, 'ring')]
+font = pygame.font.Font(None, 74)
+text = font.render(("GAME OVER"), 1, (0,0,0))
+text2 = font.render(("START GAME"), 5, (255,255,255))
+text3 = font.render(("press up key"), 1, (255,255,255))
+state = 1
+state = 2
+Game_block = [100, 570, 300, 100]
+bounce = True
 ticker =0 
 #constants
 LEFT = 0
@@ -88,7 +96,8 @@ map3 = [[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
        [3,3,3,3,3,3,3,3,3,3,3,5,5,3,3,3,3,3,3,3,3,3,3,3]]
 
 brick = pygame.image.load('images/brick.jpg')
-dirt = pygame.image.load('images/dirt.WEBP')
+dirt = pygame.image.load('images/dirt.png')
+worm = pygame.image.load('images.worm.png')
 grass = pygame.image.load('images/grass.jpg')
 space = pygame.image.load('images/space.jpg')
 
@@ -106,6 +115,8 @@ def draw(drawPlayer):
                     screen.blit(brick, (j * 50, i * 50), (0, 0, 50, 50))
                 if map[i][j] == 3:
                     screen.blit(grass, (j * 50, i * 50), (0, 0, 50, 50))
+                if map[i][j] == 4:
+                    screen.blit(worm, (j * 50, i * 50), (0, 0, 50, 50))
                 if map[i][j] == 5:
                     screen.blit(space, (j * 50, i * 50), (0, 0, 50, 50))
     elif mapNum == 2:    #map
@@ -145,6 +156,18 @@ def draw(drawPlayer):
     for i in items:
         i.draw(screen)               
     pygame.display.flip()
+
+def draw2():
+    if state == 2:
+        screen.fill((0,0,0))
+        pygame.draw.rect(screen, (255,255,255),)
+        if p1.die == True:
+            screen.blit(text,(100,300))
+
+
+        
+    
+    pygame.display.flip()
     
 def dist(x1, y1, x2, y2):
     return math.sqrt((x1-x2)**2 + (y1-y2**2)**2)
@@ -154,6 +177,11 @@ def dist(x1, y1, x2, y2):
 while not gameover:
     clock.tick(60)#fps
     ticker += 1
+    if ticker%20 == 0:
+        if bounce == True:
+            bounce = False
+        else:
+            bounce = True
     #input
     for event in pygame.event.get():
         if event.type == pygame.QUIT:#quit game if x is presed in top corner
@@ -199,8 +227,8 @@ while not gameover:
         e2.die(ball.xpos, ball.ypos)
         n1.move(map,ticker)
         n2.move(map,ticker)
-        #p1.die(e1.xpos, e1.ypos)
-        #p1.ouch(e1.xpos, e1.ypos)
+        p1.die(e1.xpos, e1.ypos)
+        p1.ouch(e1.xpos, e1.ypos)
         p1.move(keys, map)
         ball.move()
         if keys[ENTER] == True and dist(p1.xpos, p1.ypos, n1.xpos, n1.xpos)<10:
@@ -214,8 +242,8 @@ while not gameover:
         e2.die(ball.xpos, ball.ypos)
         n1.move(map,ticker)
         n2.move(map,ticker)
-        #p1.die(e1.xpos, e1.ypos)
-        #p1.ouch(e1.xpos, e1.ypos)
+        p1.die(e1.xpos, e1.ypos)
+        p1.ouch(e1.xpos, e1.ypos)
         p1.move(keys, map)
         ball.move()
 
@@ -238,8 +266,10 @@ while not gameover:
     for i in items:
         if i.collected == False and dist(p1.xpos, p1.ypos, i.xpos, i.ypos)<30:
             p1.collect_item(i)
+        
 
     #render
     draw(True)
+
 
 pygame.quit()
