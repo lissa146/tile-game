@@ -11,11 +11,11 @@ UP = 2
 DOWN = 3
 SPACE = 4
 W = 5
-
+state = 1
 
 class Player:
     def __init__ (self):
-        
+        global state
         #player variable
         self.xpos = 400
         self.ypos = 415
@@ -34,7 +34,11 @@ class Player:
     def draw(self, screen):
         if self.isAlive == False:
             screen.blit(Chicken, (self.xpos, self.ypos), (self.frameWidth*self.frameNum, self.RowNum*self.frameHeight, self.frameWidth, self.frameHeight))
-    
+        for item in self.inventory:
+            item.draw(screen)
+        for i in range(2):
+            pygame.draw.rect(screen, (0,0,0), (200 + 50*i, 750, 50, 50))
+            pygame.draw.rect(screen, (255,255, 255), (200 + 50*i, 750, 50, 50), 2)
     def move(self, keys, map):
         #left/right---------------------
         # left movement
@@ -92,9 +96,11 @@ class Player:
             self.health -= 5
 
     def die(self, x, y):
+        global state 
         if math.sqrt((self.xpos-x)**2 + (self.ypos-y)**2) <= 20:
             if self.health == 0:
-                self.isAlive = True
+                state += 1
+                
     def collect_item(self,item):
          item.collect()
          self.inventory.append(item)

@@ -18,13 +18,13 @@ e1 = enemy(400, 200)
 e2 = enemy(400,100)
 n1 = npc(200,100)
 n2 = npc(300,100)
-items = [item(100, 100, 'dount'), item(200, 200, 'ring')]
+items = [item(100, 100, 'dount'), item(300, 300, 'ring')]
 font = pygame.font.Font(None, 74)
 text = font.render(("GAME OVER"), 1, (0,0,0))
 text2 = font.render(("START GAME"), 5, (255,255,255))
 text3 = font.render(("press up key"), 1, (255,255,255))
 state = 1
-state = 2
+
 Game_block = [100, 570, 300, 100]
 bounce = True
 ticker =0 
@@ -97,70 +97,71 @@ map3 = [[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
 
 brick = pygame.image.load('images/brick.jpg')
 dirt = pygame.image.load('images/dirt.png')
-worm = pygame.image.load('images.worm.png')
+#worm = pygame.image.load('images.worm.png')
 grass = pygame.image.load('images/grass.jpg')
 space = pygame.image.load('images/space.jpg')
 
 def draw(drawPlayer):
-    screen.fill((0,0,0))#wipe screen
-    
+    if state == 1:
+        screen.fill((0,0,0))#wipe screen
         
-        #print(p1.vx, p1.vy, p1.xpos, p1.ypos)
-    if mapNum == 1:    #map
-        for i in range(len(map)):
-            for j in range(len(map[i])):
-                if map[i][j] == 1:
-                    screen.blit(dirt, (j * 50, i * 50), (0, 0, 50, 50))
-                if map[i][j] == 2:
-                    screen.blit(brick, (j * 50, i * 50), (0, 0, 50, 50))
-                if map[i][j] == 3:
-                    screen.blit(grass, (j * 50, i * 50), (0, 0, 50, 50))
-                if map[i][j] == 4:
-                    screen.blit(worm, (j * 50, i * 50), (0, 0, 50, 50))
-                if map[i][j] == 5:
-                    screen.blit(space, (j * 50, i * 50), (0, 0, 50, 50))
-    elif mapNum == 2:    #map
-        for i in range(len(map)):
-            for j in range(len(map[i])):
-                if map2[i][j] == 1:
-                    screen.blit(dirt, (j * 50, i * 50), (0, 0, 50, 50))
-                if map2[i][j] == 2:
-                    screen.blit(brick, (j * 50, i * 50), (0, 0, 50, 50))
-                if map2[i][j] == 3:
-                    screen.blit(grass, (j * 50, i * 50), (0, 0, 50, 50))
-                if map[i][j] == 5:
-                    screen.blit(space, (j * 50, i * 50), (0, 0, 50, 50))
-    elif mapNum == 3:    #map
-        for i in range(len(map)):
-            for j in range(len(map[i])):
-                if map2[i][j] == 1:
-                    screen.blit(dirt, (j * 50, i * 50), (0, 0, 50, 50))
-                if map2[i][j] == 2:
-                    screen.blit(brick, (j * 50, i * 50), (0, 0, 50, 50))
-                if map2[i][j] == 3:
-                    screen.blit(grass, (j * 50, i * 50), (0, 0, 50, 50))
-                if map[i][j] == 5:
-                    screen.blit(space, (j * 50, i * 50), (0, 0, 50, 50))
-    if drawPlayer == True:
-        p1.draw(screen)
-    if ball.isAlive == True:
-            ball.draw(screen)
-        
-    e1.draw(screen)
-    e2.draw(screen)
-    n1.draw(screen, ticker)
-    n2.draw(screen, ticker)
-    pygame.draw.rect(screen, (255, 255, 255), (750, 5, 200, 30))
-    pygame.draw.rect(screen, (150, 0, 0), (750, 5, p1.health, 30))
-    pygame.draw.rect(screen, (0, 0, 0), (750, 5, 200, 30), 3) 
-    for i in items:
-        i.draw(screen)               
+            
+            #print(p1.vx, p1.vy, p1.xpos, p1.ypos)
+        if mapNum == 1:    #map
+            for i in range(len(map)):
+                for j in range(len(map[i])):
+                    if map[i][j] == 1:
+                        screen.blit(dirt, (j * 50, i * 50), (0, 0, 50, 50))
+                    if map[i][j] == 2:
+                        screen.blit(brick, (j * 50, i * 50), (0, 0, 50, 50))
+                    if map[i][j] == 3:
+                        screen.blit(grass, (j * 50, i * 50), (0, 0, 50, 50))
+                    #if map[i][j] == 4:
+                        #screen.blit(worm, (j * 50, i * 50), (0, 0, 50, 50))
+                    if map[i][j] == 5:
+                        screen.blit(space, (j * 50, i * 50), (0, 0, 50, 50))
+        elif mapNum == 2:    #map
+            for i in range(len(map)):
+                for j in range(len(map[i])):
+                    if map2[i][j] == 1:
+                        screen.blit(dirt, (j * 50, i * 50), (0, 0, 50, 50))
+                    if map2[i][j] == 2:
+                        screen.blit(brick, (j * 50, i * 50), (0, 0, 50, 50))
+                    if map2[i][j] == 3:
+                        screen.blit(grass, (j * 50, i * 50), (0, 0, 50, 50))
+                    if map[i][j] == 5:
+                        screen.blit(space, (j * 50, i * 50), (0, 0, 50, 50))
+        elif mapNum == 3:    #map
+            for i in range(len(map)):
+                for j in range(len(map[i])):
+                    if map2[i][j] == 1:
+                        screen.blit(dirt, (j * 50, i * 50), (0, 0, 50, 50))
+                    if map2[i][j] == 2:
+                        screen.blit(brick, (j * 50, i * 50), (0, 0, 50, 50))
+                    if map2[i][j] == 3:
+                        screen.blit(grass, (j * 50, i * 50), (0, 0, 50, 50))
+                    if map[i][j] == 5:
+                        screen.blit(space, (j * 50, i * 50), (0, 0, 50, 50))
+        if drawPlayer == True:
+            p1.draw(screen)
+        if ball.isAlive == True:
+                ball.draw(screen)
+            
+        e1.draw(screen)
+        e2.draw(screen)
+        n1.draw(screen, ticker)
+        n2.draw(screen, ticker)
+        pygame.draw.rect(screen, (255, 255, 255), (750, 5, 200, 30))
+        pygame.draw.rect(screen, (150, 0, 0), (750, 5, p1.health, 30))
+        pygame.draw.rect(screen, (0, 0, 0), (750, 5, 200, 30), 3) 
+        for i in items:
+            i.draw(screen, xpos, y)               
     pygame.display.flip()
 
 def draw2():
     if state == 2:
         screen.fill((0,0,0))
-        pygame.draw.rect(screen, (255,255,255),)
+        pygame.draw.rect(screen, (255,255,255),(750, 100, 200, 300))
         if p1.die == True:
             screen.blit(text,(100,300))
 
@@ -270,6 +271,8 @@ while not gameover:
 
     #render
     draw(True)
+    print (state)  
+    draw2()
 
 
 pygame.quit()

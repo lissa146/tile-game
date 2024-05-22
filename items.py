@@ -25,8 +25,23 @@ class item:
         self.collected = False
 
 
-    def draw(self, screen):
+    def draw(self, screen,x ,y):
             if self.collected == False:
-                pygame.draw.circle(screen, (0, 250, 250), (self.xpos, self.ypos), 10)
-    def collect(self):
-         self.collected == True
+                if self.type == "dount":
+                    pygame.draw.circle(screen, (250, 0, 0), (self.x, self.y), 10)
+                    pygame.draw.circle(screen, (250, 250, 0), (self.x, self.y), 5)
+                elif self.type == "ring":
+                    pygame.draw.circle(screen, (250, 0, 0), (self.x, self.y), 10)
+                    pygame.draw.circle(screen, (0, 250, 0), (self.x, self.y), 5)
+
+
+            if self.collected == True:
+                if self.type == "dount":
+                    pygame.draw.circle(screen, (250, 0, 0), (self.x, self.y), 10)
+                    pygame.draw.circle(screen, (250, 250, 0), (self.x, self.y), 5)
+                elif self.type == "ring":
+                    pygame.draw.circle(screen, (250, 0, 0), (self.x, self.y), 10)
+                    pygame.draw.circle(screen, (0, 250, 0), (self.x, self.y), 5)
+    def collect_item(self, item):
+        item.collect()
+        self.inventory.appened(item)
